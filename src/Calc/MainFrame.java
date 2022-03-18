@@ -17,6 +17,7 @@ class BadExpression extends IOException {
 
 public class MainFrame extends JFrame {
     private final JTextField resultField;
+    private JPanel numbersPanel;
 
     public double calculateExpr(String expr) throws BadExpression {
         if(!expr.isBlank()) {
@@ -73,13 +74,15 @@ public class MainFrame extends JFrame {
         setIconImage(smallIcon);
         int width = screenSize.width;
         int height = screenSize.height;
-        setSize(width/4, height/2);
         setLocationByPlatform(true);
+        setSize(width/4, height/2);
+
 
         resultField = new JTextField();
-        resultField.setBounds(10,10,width/4 - 30,height/18);
-        add(resultField);
+        resultField.setEditable(false);
+        numbersPanel = new JPanel();
 
+        add(resultField, BorderLayout.BEFORE_FIRST_LINE);
 
         JButton ceButton = new JButton("CE");
         JButton cButton = new JButton("C");
@@ -108,37 +111,8 @@ public class MainFrame extends JFrame {
         JButton sepButton = new JButton(",");
         JButton eqButton = new JButton("=");
 
-
-        ceButton.setBounds(10, height/18+15, resultField.getWidth()/2-5, height/18);
         ceButton.setBackground(Color.gray);
-        cButton.setBounds(ceButton.getX() + ceButton.getWidth() + 7, ceButton.getY(), ceButton.getWidth(), ceButton.getHeight());
         cButton.setBackground(Color.gray);
-
-        reciprocalButton.setBounds(ceButton.getX(), ceButton.getY()+ceButton.getHeight()+5, resultField.getWidth()/4-5, ceButton.getHeight());
-        powButton.setBounds(reciprocalButton.getX()+reciprocalButton.getWidth()+5, reciprocalButton.getY(), reciprocalButton.getWidth(), reciprocalButton.getHeight());
-        sqrtButton.setBounds(cButton.getX(), reciprocalButton.getY(), reciprocalButton.getWidth(), reciprocalButton.getHeight());
-        divButton.setBounds(sqrtButton.getX()+sqrtButton.getWidth()+5, sqrtButton.getY(), reciprocalButton.getWidth(), reciprocalButton.getHeight());
-
-        sevenButton.setBounds(reciprocalButton.getX(), reciprocalButton.getY()+reciprocalButton.getHeight()+5, reciprocalButton.getWidth(), reciprocalButton.getHeight());
-        eightButton.setBounds(sevenButton.getX()+sevenButton.getWidth()+5, sevenButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        nineButton.setBounds(cButton.getX(), sevenButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        multiButton.setBounds(nineButton.getX()+nineButton.getWidth()+5, sevenButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-
-        fourButton.setBounds(sevenButton.getX(), sevenButton.getY()+sevenButton.getHeight()+5, sevenButton.getWidth(), sevenButton.getHeight());
-        fiveButton.setBounds(fourButton.getX()+fourButton.getWidth()+5, fourButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        sixButton.setBounds(nineButton.getX(), fourButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        minusButton.setBounds(sixButton.getX()+sixButton.getWidth()+5, fourButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-
-        oneButton.setBounds(fourButton.getX(), fourButton.getY()+fourButton.getHeight()+5, sevenButton.getWidth(), sevenButton.getHeight());
-        twoButton.setBounds(oneButton.getX()+oneButton.getWidth()+5, oneButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        threeButton.setBounds(sixButton.getX(), oneButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        plusButton.setBounds(threeButton.getX()+threeButton.getWidth()+5, oneButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-
-        plusMinusButton.setBounds(oneButton.getX(), oneButton.getY()+oneButton.getHeight()+5, sevenButton.getWidth(), sevenButton.getHeight());
-        zeroButton.setBounds(plusMinusButton.getX()+plusMinusButton.getWidth()+5, plusMinusButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        sepButton.setBounds(threeButton.getX(), plusMinusButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-        eqButton.setBounds(sepButton.getX()+sepButton.getWidth()+5, plusMinusButton.getY(), sevenButton.getWidth(), sevenButton.getHeight());
-
         sevenButton.setBackground(Color.lightGray);
         oneButton.setBackground(Color.lightGray);
         twoButton.setBackground(Color.lightGray);
@@ -343,8 +317,9 @@ public class MainFrame extends JFrame {
             }
         });
         sepButton.addActionListener( event -> {
-            if (!resultField.getText().isBlank())
-                resultField.setText(resultField.getText() + ".");
+            String content = resultField.getText();
+            if (!content.isBlank() || content.charAt(content.length()-1) != '.')
+                resultField.setText(content + ".");
         });
         eqButton.addActionListener( event -> {
             String resultText = resultField.getText();
@@ -482,31 +457,30 @@ public class MainFrame extends JFrame {
         });
 
 
-        add(ceButton);
-        add(cButton);
-        add(sevenButton);
-        add(oneButton);
-        add(twoButton);
-        add(threeButton);
-        add(fourButton);
-        add(fiveButton);
-        add(sixButton);
-        add(sevenButton);
-        add(eightButton);
-        add(nineButton);
-
-        add(reciprocalButton);
-        add(powButton);
-        add(sqrtButton);
-        add(divButton);
-        add(multiButton);
-        add(minusButton);
-        add(plusButton);
-        add(plusMinusButton);
-        add(zeroButton);
-        add(sepButton);
-        add(eqButton);
-
-        setLayout(null);
+        add(ceButton,BorderLayout.WEST);
+        add(cButton,BorderLayout.EAST);
+        numbersPanel.add(reciprocalButton);
+        numbersPanel.add(powButton);
+        numbersPanel.add(sqrtButton);
+        numbersPanel.add(divButton);
+        numbersPanel.add(sevenButton);
+        numbersPanel.add(eightButton);
+        numbersPanel.add(nineButton);
+        numbersPanel.add(multiButton);
+        numbersPanel.add(fourButton);
+        numbersPanel.add(fiveButton);
+        numbersPanel.add(sixButton);
+        numbersPanel.add(minusButton);
+        numbersPanel.add(oneButton);
+        numbersPanel.add(twoButton);
+        numbersPanel.add(threeButton);
+        numbersPanel.add(plusButton);
+        numbersPanel.add(plusMinusButton);
+        numbersPanel.add(zeroButton);
+        numbersPanel.add(sepButton);
+        numbersPanel.add(eqButton);
+        numbersPanel.setBounds(ceButton.getX(), ceButton.getY()+ceButton.getHeight()+5, resultField.getWidth()/4-5, ceButton.getHeight());
+        numbersPanel.setLayout(new GridLayout(5,4));
+        add(numbersPanel, BorderLayout.CENTER);
     }
 }

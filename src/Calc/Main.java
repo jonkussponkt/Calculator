@@ -16,6 +16,5 @@ public class Main {
 
 
 /**
- * 1) Zamienić na siatkę gridową czy cus lepszego
- * 2) Dodać ewentualnie klasy adaptacyjne
+ * 1) Dodać ewentualnie klasy adaptacyjne
  * */
