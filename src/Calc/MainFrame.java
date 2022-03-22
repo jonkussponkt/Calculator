@@ -77,7 +77,6 @@ public class MainFrame extends JFrame {
         setLocationByPlatform(true);
         setSize(width/4, height/2);
 
-
         resultField = new JTextField();
         resultField.setEditable(false);
         numbersPanel = new JPanel();
@@ -455,6 +454,14 @@ public class MainFrame extends JFrame {
             if (!content.isBlank() && content.charAt(0) == '-')
                 resultField.setText(content.substring(1));
         });
+
+        ceButton.setToolTipText("Delete last character/number"); /// hover action
+        cButton.setToolTipText("Delete whole expression");
+        reciprocalButton.setToolTipText("Reciprocal of expression");
+        powButton.setToolTipText("Square of expression");
+        sqrtButton.setToolTipText("Square root of expression");
+        plusMinusButton.setToolTipText("Opposite of expression");
+        eqButton.setToolTipText("Compute value of expression");
 
 
         add(ceButton,BorderLayout.WEST);
